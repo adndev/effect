@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript" src="jquery-1.7.1.min.js"></script>
+	<style type="text/css">
+		html, body {
+			margin: 0;
+			padding: 0;
+		}
+		header {
+			height: 150px;
+			background: red;
+			position: relative;
+		}
+		.fixed header {
+			position: fixed;
+			bottom: calc(100% - 60px);
+			left: 0;
+			width: 100%;
+		}
+		.main {
+			min-height: 900px;
+			background: green;
+		}
+		.fixed .main {
+			padding-top: 150px;
+		}
+		.menu {
+			height: 20px;
+			transform: translateY(0);
+			transition: transform 0.35s;
+			background: white;
+			text-align: center;
+		}
+		.fixed .menu {
+			transform: translateY(-10px);
+			margin-top: 120px;
+		}
+		.top {
+			height: 70px;
+			margin-bottom: 50px;
+			background: yellow;
+			position: relative;
+			top: 0;
+			transition: top 0.1s ease-out 0s;
+		}
+		.fixed .top {
+			position: absolute;
+			width: 350px;
+			left: 0;
+			top: 70px;
+			transition: top 0.3s ease-out 0.35s;
+		}
+		a {
+			text-decoration: none;
+			text-transform: uppercase;
+			color: #000;
+			display: inline-block;
+		}
+		a span {
+			position: relative;
+			display: block;
+		}
+		a span:after {
+			content: "";
+			height: 2px;
+			background: #000;
+			display: block;
+			transition: transform 0.3s;
+			transform: scaleX(0);
+			transform-origin: 100% 0;
+		}
+		a.normal-hover span:after {
+			content: "";
+			height: 2px;
+			background: #000;
+			display: block;
+			transition: transform 0.3s;
+			transform: scaleX(0);
+			transform-origin: 0;
+		}
+		a.reverse-hover:hover span:after {
+			content: "";
+			transform: scaleX(1);
+			transform-origin: 0 100%;
+		}
+		a.normal-hover:hover span:after {
+			content: "";
+			transform: scaleX(1);
+			transform-origin: 0 0;
+		}
+		.inner-div {
+			display: none;
+		}
+		button.active + .inner-div {
+			display: block;
+		}
+	</style>
+</head>
+<body>
+
+<header>
+	<div class="top"></div>
+	<div class="menu">
+		<a href="#" class="reverse-hover">
+			<span>Mon Link</span>
+		</a>
+		<a href="#" class="normal-hover">
+			<span>Mon Link</span>
+		</a>
+	</div>
+</header>
+<div>
+	<ul>
+		<li>
+			<button class="active">Collection</button>
+			<div class="inner-div">inner div1</div>
+		</li>
+		<li>
+			<button>Catalogue</button>
+			<div class="inner-div">inner div2</div>
+		</li>
+	</ul>
+</div>
+<div class="main"></div>
+<script type="text/javascript">
+	$(function(){
+		$(window).on('scroll', function(){
+			if ($(window).scrollTop() > 80) {
+				$('body').addClass('fixed');
+			} else {
+				$('body').removeClass('fixed');
+			}
+		});
+
+		$('button').on('click', function(event){
+			$(this).toggleClass('active');
+		})
+	});
+</script>
+</body>
+</html>
